@@ -27,5 +27,41 @@ from setor import deletar_setor,listar_setores
 
 #criar_setor('TI','SUL')
 #listar_setores()
-atualizar_setor(5,'Almoxarifado','Sudeste')
-listar_setores()
+#atualizar_setor(5,'Almoxarifado','Sudeste')
+#listar_setores()
+
+while True:
+    print('\n----SISTEMA INDUSTRIAL----')
+    print('1 - Listar Funcionario')
+    print('2 - Cadastrar Funcionario')
+    print('3 - Atualizar Salario')
+    print('4 - Remover Funcionario')
+    print('5 - Sair')
+
+    opcao = input('Escolha uma opção:')
+    
+    if opcao == '1':
+
+
+    elif opcao =='2':
+        nome = input('NOME:')
+        cpf = input('CPF:')
+
+    elif opcao == '3':
+        id_funcionario = input('ID funcionario:')
+        novo_cargo = input('Cargo:')
+
+        atualizar_cargo(id_funcionario,novo_cargo)
+
+    elif opcao == '4':
+        id_funcionario = input('ID Funcionario:')
+
+        deletar_funcionario(id_funcionario)
+    
+    #sair
+    elif opcao == '0':
+        print('Saindo...')
+        break
+
+    else:
+        print('Tente novamente')
