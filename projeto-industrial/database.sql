@@ -516,3 +516,25 @@ VALUES
 'Estrutura apresentou desalinhamento',
 
 8);
+
+
+ALTER TABLE produto 
+DROP FOREIGN KEY fk_produto_fornecedor;
+
+ALTER TABLE produto
+ADD CONSTRAINT fk_produto_fornecedor
+FOREIGN KEY (id_fornecedor) REFERENCES fornecedor(id_fornecedor)
+ON DELETE CASCADE;
+
+ALTER TABLE ordem_producao 
+DROP FOREIGN KEY fk_ordem_produto;
+
+ALTER TABLE ordem_producao
+ADD CONSTRAINT fk_ordem_produto
+FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
+ON DELETE CASCADE;
+
+ALTER TABLE controle_qualidade
+ADD CONSTRAINT fk_qualidade_ordem
+FOREIGN KEY (id_ordem) REFERENCES ordem_producao(id_ordem)
+ON DELETE CASCADE;

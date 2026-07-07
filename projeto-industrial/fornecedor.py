@@ -33,4 +33,4 @@ def deletar_fornecededor(id_fornecedor):
 def atualizar_fornecedor():
     pass
 
-listar_fornecedor()
+
