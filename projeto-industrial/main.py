@@ -41,7 +41,7 @@ while True:
     opcao = input('Escolha uma opção:')
     
     if opcao == '1':
-
+        listar_funcionarios()
 
     elif opcao =='2':
         nome = input('NOME:')
