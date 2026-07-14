@@ -17,40 +17,47 @@ def listar_funcionarios():
 
     sql = """
     SELECT 
-        f.id_funcionario, 
-        f.nome, 
-        f.cargo, 
-        s.nome AS setor,
+        f.id_funcionario,
+        f.nome,
         f.cpf,
+        f.cargo,
         f.salario,
-        f.data_admissao
-    FROM funcionario f
-    JOIN setor s ON f.id_setor = s.id_setor
+        f.data_admissao,
+        s.nome AS setor
+    from funcionario f
+    join setor s on f.id_setor = s.id_setor
     """
-    
-    # executa sql
+    #executa sql
     cursor.execute(sql)
-    
-    # recuperar dados
+
+    #recuperar dados
     dados = cursor.fetchall()
-    
-    # exibir dados
+
+
+    #exibir dados
     for funcionario in dados:
-        print(funcionario)
-        
-    # fechar a conexão
+        print(f"\nID:{funcionario[0]}")
+        print(f"Nome: {funcionario[1]}")
+        print(f"Cargo: {funcionario[2]}")
+        print(f"Setor: {funcionario[3]}")
+        print("-"*40)
+
+
+
+    #fechar a conexao
+
     cursor.close()
     conexao.close()
 
-def cadastrar_funcionario(nome,cargo,id_setor,cpf,salario,data_admissao):
+def cadastrar_funcionario(nome,cpf,cargo,salario,data_admissao,id_setor):
     conexao = conectar()
     cursor = conexao.cursor()
 
     sql = """
-    INSERT INTO funcionario (nome, cargo, id_setor,cpf,salario,data_admissao)
-    VALUES (%s, %s, %s, %s, %s, %s)
+    INSERT INTO funcionario (nome,cpf,cargo,salario,data_admissao,id_setor)
+    VALUES (%s, %s, %s,%s, %s, %s)
     """
-    valores = (nome, cargo, id_setor,cpf,salario,data_admissao)
+    valores = (nome,cpf,cargo,salario,data_admissao,id_setor)
     cursor.execute(sql, valores)
     conexao.commit()
 
@@ -76,20 +83,60 @@ def atualizar_cargo(id_funcionario, novo_cargo):
 
     cursor.close()
     conexao.close()
-
+    
 def deletar_funcionario(id_funcionario):
-    conexao = conectar()
-    cursor = conexao.cursor()
 
-    sql = """
-    delete from funcionario
-    where id_funcionario = %s
-    """
-    valores = (id_funcionario)
-    cursor.execute(sql, (valores,))
-    conexao.commit()
-    print("Funcionario removido com sucesso")
+    try:
+        conexao = conectar()
+        cursor = conexao.cursor()
 
-    cursor.close()
-    conexao.close()
+        sql = """
+        delete from funcionario
+        where id_funcionario = %s
+        """
+        valores = (id_funcionario)
+        cursor.execute(sql, (valores,))
+        conexao.commit()
+        print("Funcionário removido com sucesso!")
 
+
+        cursor.close()
+        conexao.close()
+
+    except Exception as erro:
+        print("\n ERRO AO REMOVER FUNCIONARIO:")
+        print(f"investigue o seguinte erro:{erro}")
+
+
+def buscar_funcionario(id_funcionario):
+    try:
+        conexao = conectar()
+        cursor = conexao.cursor()
+
+        sql = """
+                SELECT 
+                    f.id_funcionario,
+                    f.nome,
+                    s.nome as setor
+                FROM funcionario as f
+                JOIN setor as s ON f.id_setor = s.id_setor
+                where f.id_funcionario = %s
+
+            """
+        valores = (id_funcionario,)
+        cursor.execute(sql, valores)
+        funcionario = cursor.fetchone()
+
+        if funcionario:
+            
+            print(f"ID: {funcionario[0]}")
+            print(f"Nome: {funcionario[1]}")
+            print(f"Nome setor: {funcionario[2]}")
+        else:
+            print("Funcionario nao encontrado!")
+
+        cursor.close()
+        conexao.close()
+
+    except Exception as erro:
+        print(erro)

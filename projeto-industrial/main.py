@@ -1,6 +1,6 @@
 
 
-from funcionario import listar_funcionarios
+from funcionario import buscar_funcionario, listar_funcionarios
 
 from funcionario import cadastrar_funcionario
 
@@ -38,7 +38,10 @@ while True:
     print('2 - Cadastrar Funcionario')
     print('3 - Atualizar Salario')
     print('4 - Remover Funcionario')
-    print('5 - Sair')
+    print('5 - Buscar Funcionario')
+    print('6 - Listar Produtos')
+    print('7 - Relatorio de Produção por Setor')
+    print('0 - Sair')
 
     opcao = input('Escolha uma opção:')
     
@@ -60,7 +63,14 @@ while True:
 
         deletar_funcionario(id_funcionario)
     
-    #sair
+    elif opcao == '5':
+        id_funcionario = input('ID Funcionario:')
+        buscar_funcionario(id_funcionario)
+    
+    elif opcao == '6':
+    
+    elif opcao == '7':
+        
     elif opcao == '0':
         print('Saindo...')
         break
